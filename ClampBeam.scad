@@ -1,21 +1,21 @@
+module rotcy(rot, r, h) {
+	rotate(90, rot)
+	cylinder(r = r/2, h = h, center = true);
+}
 module  clampBeam001() {
-	module rotcy(rot, r, h) {
-		rotate(90, rot)
-			cylinder(r = r/2, h = h, center = true);
-	}
-	
+	// main beam
 	difference() {
-	difference() {
-		union() {
-			cube(size = [25,130,15]);
-			translate(v = [12.5, 0, 7.5]){
-				rotcy([0, 1, 0], 15, 25.005);
+		difference() {
+			union() {
+				cube(size = [25,130,15]);
+				translate(v = [12.5, 0, 7.5]){
+					rotcy([0, 1, 0], 15, 25.005);
+				}
 			}
+			translate(v = [10, 0, 7.5]){
+				rotcy([0, 1, 0], 5, 35);
+			}	
 		}
-		translate(v = [10, 0, 7.5]){
-			rotcy([0, 1, 0], 5, 35);
-		}
-	}
 		translate(v = [-1,12,2.5]) {
 			cube(size = [9,140,10]);
 		}
@@ -29,7 +29,27 @@ module  clampBeam001() {
 			cube(size = [5,15,25]);
 		}
 	}	
+	
 }
 
-clampBeam001();
+module clampBeam002() {
+	// corner
+	translate(v= [0,130,0]) {
+	difference() {
+		cube(size = [25,15,15]);	
+		translate(v = [-1,-2.5,-2.5]) {
+			cube(size = [9,15,15]);
+		}
+		translate(v = [17,-2.5,-2.5]) {
+			cube(size = [9,15,15]);
+		}
+		
+	}
+	}
+}
+
+union() {
+	clampBeam001();
+	clampBeam002();
+}
 
